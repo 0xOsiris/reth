@@ -2,7 +2,7 @@
 
 //! Optimism builder support
 
-use alloy_eips::eip2718::Decodable2718;
+use alloy_eips::{eip2718::Decodable2718, eip7685::Requests};
 use alloy_primitives::{keccak256, Address, B256, U256};
 use alloy_rlp::Encodable;
 use alloy_rpc_types_engine::{ExecutionPayloadEnvelopeV2, ExecutionPayloadV1, PayloadId};
@@ -182,6 +182,10 @@ impl BuiltPayload for OptimismBuiltPayload {
     fn executed_block(&self) -> Option<ExecutedBlock> {
         self.executed_block.clone()
     }
+
+    fn requests(&self) -> Option<Requests> {
+        None
+    }
 }
 
 impl BuiltPayload for &OptimismBuiltPayload {
@@ -195,6 +199,10 @@ impl BuiltPayload for &OptimismBuiltPayload {
 
     fn executed_block(&self) -> Option<ExecutedBlock> {
         self.executed_block.clone()
+    }
+
+    fn requests(&self) -> Option<Requests> {
+        None
     }
 }
 
@@ -353,14 +361,14 @@ mod tests {
             eip_1559_params: None,
         };
 
-        // Reth's `PayloadId` should match op-geth's `PayloadId`. This fails
+        // Reth's `PayloadId` should match op-geth's `PayloadId`
         assert_eq!(
             expected,
             payload_id_optimism(
                 &b256!("3533bf30edaf9505d0810bf475cbe4e5f4b9889904b9845e83efdeab4e92eb1e"),
                 &attrs,
                 EngineApiMessageVersion::V3
-            ) // := "0x6ef26ca02318dcf9"
+            ) 
         );
     }
 }
