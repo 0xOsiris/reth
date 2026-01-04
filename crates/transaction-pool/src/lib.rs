@@ -293,6 +293,9 @@ pub use crate::{
         TransactionValidator, ValidPoolTransaction,
     },
 };
+
+#[cfg(feature = "dynamic-best")]
+pub use crate::pool::{BestTransactionsCache, DynamicBestTransactions};
 use crate::{identifier::TransactionId, pool::PoolInner};
 use alloy_eips::{
     eip4844::{BlobAndProofV1, BlobAndProofV2},
@@ -497,7 +500,7 @@ where
         transactions: Vec<Self::Transaction>,
     ) -> Vec<PoolResult<AddedTransactionOutcome>> {
         if transactions.is_empty() {
-            return Vec::new()
+            return Vec::new();
         }
         let validated = self.validate_all(origin, transactions).await;
 

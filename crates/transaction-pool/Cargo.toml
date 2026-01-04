@@ -53,6 +53,7 @@ serde_json.workspace = true
 bitflags.workspace = true
 auto_impl.workspace = true
 smallvec.workspace = true
+crossbeam-skiplist = { workspace = true, optional = true }
 
 # testing
 rand = { workspace = true, optional = true }
@@ -119,6 +120,8 @@ arbitrary = [
     "reth-ethereum-primitives/arbitrary",
     "revm-primitives/arbitrary",
 ]
+
+dynamic-best = ["crossbeam-skiplist"]
 
 [[bench]]
 name = "truncate"

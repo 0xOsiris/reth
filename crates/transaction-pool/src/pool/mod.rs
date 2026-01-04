@@ -127,6 +127,10 @@ pub mod size;
 pub(crate) mod state;
 pub mod txpool;
 mod update;
+#[cfg(feature = "dynamic-best")]
+mod dynamic_best;
+#[cfg(feature = "dynamic-best")]
+pub use dynamic_best::{BestTransactionsCache, DynamicBestTransactions};
 
 /// Bound on number of pending transactions from `reth_network::TransactionsManager` to buffer.
 pub const PENDING_TX_LISTENER_BUFFER_SIZE: usize = 2048;
